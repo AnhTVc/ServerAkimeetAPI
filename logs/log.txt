@@ -129,3 +129,40 @@ INFO main org.eclipse.jetty.util.log - Logging initialized @372ms
  INFO 14/11/2016 00:31:50 com.project.DAO.sql.PoolManagerRead NumIdle : 0
  INFO 14/11/2016 00:31:50 com.project.DAO.sql.PoolManagerRead Active : 5
  INFO 14/11/2016 00:31:50 com.project.DAO.sql.RestaurantDAO SELECT * FROM restaurant,collection  WHERE restaurant.id_restaurant = collection.id_restaurant AND restaurant.type = ? AND collection.type = ?;
+INFO main org.eclipse.jetty.util.log - Logging initialized @937ms
+ INFO 14/11/2016 00:56:36 ServiceMain Server is starting . . .
+ INFO 14/11/2016 00:56:36 org.eclipse.jetty.server.Server jetty-9.2.2.v20140723
+ INFO 14/11/2016 00:56:38 org.eclipse.jetty.server.handler.ContextHandler Started o.e.j.s.ServletContextHandler@13d4992d{/,null,AVAILABLE}
+ INFO 14/11/2016 00:56:39 org.eclipse.jetty.server.ServerConnector Started ServerConnector@73d983ea{HTTP/1.1}{0.0.0.0:8686}
+ INFO 14/11/2016 00:56:39 org.eclipse.jetty.server.Server Started @3615ms
+ INFO 14/11/2016 00:56:39 ServiceMain Server is running on port 8686 ...
+ INFO 14/11/2016 00:56:47 com.project.DAO.sql.PoolManagerRead Total : 5
+ INFO 14/11/2016 00:56:47 com.project.DAO.sql.PoolManagerRead NumIdle : 0
+ INFO 14/11/2016 00:56:47 com.project.DAO.sql.PoolManagerRead Active : 1
+ INFO 14/11/2016 00:56:47 com.project.DAO.sql.RestaurantDAO SELECT * FROM restaurant,collection  WHERE restaurant.id_restaurant = collection.id_restaurant AND restaurant.type = ? AND collection.type = ?;
+ INFO 14/11/2016 00:56:51 com.project.DAO.sql.PoolManagerRead Total : 5
+ INFO 14/11/2016 00:56:51 com.project.DAO.sql.PoolManagerRead NumIdle : 0
+ INFO 14/11/2016 00:56:51 com.project.DAO.sql.PoolManagerRead Active : 2
+ INFO 14/11/2016 00:56:51 com.project.DAO.sql.RestaurantDAO SELECT * FROM restaurant,collection  WHERE restaurant.id_restaurant = collection.id_restaurant AND restaurant.type = ? AND collection.type = ?;
+INFO main org.eclipse.jetty.util.log - Logging initialized @387ms
+ INFO 14/11/2016 01:00:20 ServiceMain Server is starting . . .
+ INFO 14/11/2016 01:00:20 org.eclipse.jetty.server.Server jetty-9.2.2.v20140723
+ INFO 14/11/2016 01:00:23 org.eclipse.jetty.server.handler.ContextHandler Started o.e.j.s.ServletContextHandler@13d4992d{/,null,AVAILABLE}
+ INFO 14/11/2016 01:00:23 org.eclipse.jetty.server.ServerConnector Started ServerConnector@73d983ea{HTTP/1.1}{0.0.0.0:8686}
+ INFO 14/11/2016 01:00:23 org.eclipse.jetty.server.Server Started @3089ms
+ INFO 14/11/2016 01:00:23 ServiceMain Server is running on port 8686 ...
+ INFO 14/11/2016 01:00:26 com.project.DAO.sql.PoolManagerRead Total : 5
+ INFO 14/11/2016 01:00:26 com.project.DAO.sql.PoolManagerRead NumIdle : 0
+ INFO 14/11/2016 01:00:26 com.project.DAO.sql.PoolManagerRead Active : 1
+ INFO 14/11/2016 01:00:26 com.project.DAO.sql.RestaurantDAO SELECT * FROM restaurant,collection  WHERE restaurant.id_restaurant = collection.id_restaurant AND restaurant.type = ? AND collection.type = ?;
+INFO main org.eclipse.jetty.util.log - Logging initialized @494ms
+ INFO 14/11/2016 01:01:12 ServiceMain Server is starting . . .
+ INFO 14/11/2016 01:01:12 org.eclipse.jetty.server.Server jetty-9.2.2.v20140723
+ INFO 14/11/2016 01:01:14 org.eclipse.jetty.server.handler.ContextHandler Started o.e.j.s.ServletContextHandler@13d4992d{/,null,AVAILABLE}
+ INFO 14/11/2016 01:01:15 org.eclipse.jetty.server.ServerConnector Started ServerConnector@73d983ea{HTTP/1.1}{0.0.0.0:8686}
+ INFO 14/11/2016 01:01:15 org.eclipse.jetty.server.Server Started @3156ms
+ INFO 14/11/2016 01:01:15 ServiceMain Server is running on port 8686 ...
+ INFO 14/11/2016 01:01:15 com.project.DAO.sql.PoolManagerRead Total : 5
+ INFO 14/11/2016 01:01:15 com.project.DAO.sql.PoolManagerRead NumIdle : 0
+ INFO 14/11/2016 01:01:15 com.project.DAO.sql.PoolManagerRead Active : 1
+ INFO 14/11/2016 01:01:15 com.project.DAO.sql.RestaurantDAO SELECT * FROM restaurant,collection  WHERE restaurant.id_restaurant = collection.id_restaurant AND restaurant.type = ? AND collection.type = ?;

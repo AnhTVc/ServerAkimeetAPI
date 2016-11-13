@@ -1,5 +1,6 @@
 package com.project.DAO.sql;
 
+import com.project.POJO.Address;
 import com.project.POJO.Restaurant;
 import org.apache.log4j.Logger;
 
@@ -71,6 +72,23 @@ public class RestaurantDAO {
                 restaurant.setImages(resultSet.getString("images"));
                 restaurant.setExtend(resultSet.getString("extend"));
 
+                String str = "SELECT * from address WHERE id_restaurant = ?";
+                PreparedStatement statement = connection.prepareStatement(str);
+
+                statement.setInt(1, Integer.parseInt(restaurant.getId_restaurant()));
+                Address address = new Address();
+                ResultSet rs = statement.executeQuery();
+
+                while (rs.next()){
+                    address.setCity(rs.getString("city"));
+                    address.setDetail(rs.getString("detail"));
+                    address.setDistrict(rs.getString("district"));
+                    address.setIdAddress(rs.getString("id_address"));
+                    address.setIdCity(rs.getString("id_city"));
+                    address.setIdDistrict(rs.getString("id_district"));
+                }
+
+                restaurant.setPoistion(address);
                 restaurants.add(restaurant);
             }
 
