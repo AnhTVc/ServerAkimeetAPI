@@ -31,12 +31,11 @@ public class AddtionFacade {
         AddtionDao addtionDao = new AddtionDao();
 
         SaleResult saleResult = addtionDao.getAllSale(limit, offset, type);
-        Home home = new Home(saleResult);
         addtionDao.closeBD();
         stopWatch.stop();
         System.out.println("it time : " + stopWatch.getTime() + "ms");
         System.out.println("---------------------");
-        return gson.toJson(home);
+        return gson.toJson(saleResult);
     }
 
 }

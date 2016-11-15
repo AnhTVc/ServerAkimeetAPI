@@ -69,7 +69,7 @@ public class AddtionDao {
         }
 
         try {
-            String query = "SELECT   id_sale,id_restaurant,sale_off, time, from_date,to_date " +
+            String query = "SELECT id_sale,id_restaurant,sale_off, time, from_date,to_date " +
                     " FROM  `sale`"+
                     " ORDER BY " + orderBy + " DESC " +
                     " LIMIT " + limit +

@@ -2,6 +2,7 @@ package facade;
 
 import com.google.gson.Gson;
 import com.project.DAO.sql.SaleDao;
+import com.project.POJO.Restaurant;
 import com.project.POJO.result.Campaign;
 import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
@@ -12,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * Created by knight_cs on 23/08/2016.
  */
-@Path("/restaurants")
+@Path("/nha-hang")
 public class SaleFacade {
     private static final Logger logger = Logger.getLogger(SaleFacade.class);
 //    @POST
@@ -24,13 +25,14 @@ public class SaleFacade {
         Gson gson = new Gson();
 
         SaleDao saleDao = new SaleDao();
-        Campaign campaign = saleDao.getSale(idSale);
+
+        Restaurant restaurant = saleDao.getSale(idSale);
         saleDao.closeBD();
         stopWatch.stop();
         logger.info("it time : " + stopWatch.getTime() + "ms");
         logger.info("---------------------");
 
-        return gson.toJson(campaign);
+        return gson.toJson(restaurant);
     }
 
 }

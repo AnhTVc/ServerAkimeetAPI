@@ -47,7 +47,7 @@ public class SaleDao {
         }
     }
 
-    public Campaign getSale(String idSale) {
+    public Restaurant getSale(String idSale) {
 
         String idRestaurant;
         int saleOff;
@@ -88,16 +88,20 @@ public class SaleDao {
                 restaurant = new Restaurant(idRestaurant,restaurant.getNameRestaurant(),address,
                         restaurant.getAvatar(), restaurant.getPhoneNumber(), restaurant.getIntroduce(), restaurant.getImages());
 
+                ArrayList<Sale> sales = new ArrayList<>();
+                sales.add(sale);
+                restaurant.setSales(sales);
+                restaurant.setGroupMenus(groupMenu);
             }
-             campaign = new Campaign(restaurant, groupMenu);
 
+            return restaurant;
         } catch (SQLException e) {
             e.printStackTrace();
             logger.warn("error query");
             System.out.println(e);
 
         }
-        return campaign;
+        return null;
     }
 
     /**
@@ -179,9 +183,7 @@ public class SaleDao {
             preparedStatement = con.prepareStatement(query);
 
             ResultSet rs = preparedStatement.executeQuery();
-            ArrayList<Campaign> campaigns = new ArrayList<>();
             ArrayList<Restaurant> restaurants = new ArrayList<>();
-            Campaign campaign = null;
             while (rs.next()){
                 hourSale = rs.getString("time");
                 fromDate = rs.getString("from_date");
@@ -199,8 +201,9 @@ public class SaleDao {
 
                 ArrayList<Sale> sales = new ArrayList<>();
                 sales.add(sale);
-
                 restaurant.setSales(sales);
+
+                restaurants.add(restaurant);
             }
 
             return new SaleResult(restaurants);
