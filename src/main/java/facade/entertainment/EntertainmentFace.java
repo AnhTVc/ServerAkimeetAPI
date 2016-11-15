@@ -3,6 +3,8 @@ package facade.entertainment;
 import com.google.gson.Gson;
 import com.project.DAO.sql.RestaurantDAO;
 import com.project.POJO.Restaurant;
+import com.project.POJO.result.Entertainment;
+import com.project.POJO.result.ResultAPI;
 import com.project.util.constant.Define;
 import org.apache.commons.lang.time.StopWatch;
 
@@ -17,6 +19,31 @@ import java.util.ArrayList;
  */
 @Path("/giai-tri")
 public class EntertainmentFace {
+    static final int LIMIT = 8;
+    /**
+     * Lấy thông tin trong lĩnh vực giải trí
+     * Mỗi thể loại 8 nhà hàng
+     * @return
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    public String getEntertainmentFace(){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Gson gson = new Gson();
+        RestaurantDAO restaurantDAO = new RestaurantDAO();
+        Entertainment entertainment = new Entertainment(
+                new ResultAPI(restaurantDAO.getRestaurantByTypeAndCollection(Define.RESTAURANT_TYPE_ENTERTAINMENT, Define.TAG_ENTERTAINMENT_KARAOKE, LIMIT)),
+                new ResultAPI(restaurantDAO.getRestaurantByTypeAndCollection(Define.RESTAURANT_TYPE_ENTERTAINMENT, Define.TAG_ENTERTAINMENT_HATCHONHAUNGHE, LIMIT)),
+                new ResultAPI(restaurantDAO.getRestaurantByTypeAndCollection(Define.RESTAURANT_TYPE_ENTERTAINMENT, Define.TAG_ENTERTAINMENT_RAPCHIEUPHIM, LIMIT)),
+                new ResultAPI(restaurantDAO.getRestaurantByTypeAndCollection(Define.RESTAURANT_TYPE_ENTERTAINMENT, Define.TAG_ENTERTAINMENT_KHUVUICHOI, LIMIT)));
+
+        stopWatch.stop();
+        restaurantDAO.close();
+        return gson.toJson(entertainment);
+    }
+
+
     /**
      * Tìm trong lĩnh vực giải trí các quán karaoke
      * type: 3, type restaurant 3, nằm trong lĩnh vực giải trí
@@ -34,9 +61,9 @@ public class EntertainmentFace {
         RestaurantDAO restaurantDAO = new RestaurantDAO();
         ArrayList<Restaurant> restaurants = restaurantDAO.getRestaurantByTypeAndCollection(Define.RESTAURANT_TYPE_ENTERTAINMENT, Define.TAG_ENTERTAINMENT_KARAOKE);
 
-
+        restaurantDAO.close();
         stopWatch.stop();
-        return gson.toJson(restaurants);
+        return gson.toJson(new ResultAPI(restaurants));
     }
 
     @GET
@@ -51,7 +78,7 @@ public class EntertainmentFace {
 
 
         stopWatch.stop();
-        return gson.toJson(restaurants);
+        return gson.toJson(new ResultAPI(restaurants));
     }
 
     @GET
@@ -66,7 +93,7 @@ public class EntertainmentFace {
 
 
         stopWatch.stop();
-        return gson.toJson(restaurants);
+        return gson.toJson(new ResultAPI(restaurants));
     }
 
     @GET
@@ -81,7 +108,7 @@ public class EntertainmentFace {
 
 
         stopWatch.stop();
-        return gson.toJson(restaurants);
+        return gson.toJson(new ResultAPI(restaurants));
     }
 }
 

@@ -51,7 +51,7 @@ public class UtilsDao {
 
     public static Restaurant getRestaurant(Connection con, String id_restaurant) {
         Restaurant restaurantDAO = null;
-        String tableRestaurant = "`restaurantDAO`";
+        String tableRestaurant = "`restaurant`";
         PreparedStatement pst = null;
         try {
             String query = "SELECT  name ,avatar, introduce" +
