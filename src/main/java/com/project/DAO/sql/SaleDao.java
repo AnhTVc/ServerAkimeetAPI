@@ -89,7 +89,7 @@ public class SaleDao {
                         restaurant.getAvatar(), restaurant.getPhoneNumber(), restaurant.getIntroduce(), restaurant.getImages());
 
             }
-             campaign = new Campaign(restaurant, sale, groupMenu);
+             campaign = new Campaign(restaurant, groupMenu);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -128,7 +128,7 @@ public class SaleDao {
 
         //TODO bị lỗi sql Injection
         ResultSet rs = DAOUtil.executeQuery(con, query);
-        return new SaleResult(DAOUtil.resultSetToCampains(rs, con));
+        return new SaleResult(DAOUtil.resultSetToRestaurant(rs, con));
     }
 
     /**
@@ -148,7 +148,7 @@ public class SaleDao {
             preparedStatement.setString(1, keyword);
            // ResultSet rs = DAOUtil.executeQuery(con, query);
             ResultSet rs = preparedStatement.executeQuery();
-            return new SaleResult(DAOUtil.resultSetToCampains(rs, con));
+            return new SaleResult(DAOUtil.resultSetToRestaurant(rs, con));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -180,6 +180,7 @@ public class SaleDao {
 
             ResultSet rs = preparedStatement.executeQuery();
             ArrayList<Campaign> campaigns = new ArrayList<>();
+            ArrayList<Restaurant> restaurants = new ArrayList<>();
             Campaign campaign = null;
             while (rs.next()){
                 hourSale = rs.getString("time");
@@ -196,11 +197,13 @@ public class SaleDao {
                 }
                 sale = new Sale(String.valueOf(rs.getInt("id_sale")), saleOff, hourSale, fromDate, toDate);
 
-                campaign = new Campaign(restaurant, sale);
-                campaigns.add(campaign);
+                ArrayList<Sale> sales = new ArrayList<>();
+                sales.add(sale);
+
+                restaurant.setSales(sales);
             }
 
-            return new SaleResult(campaigns);
+            return new SaleResult(restaurants);
         }catch (SQLException e){
             logger.error(e);
         }

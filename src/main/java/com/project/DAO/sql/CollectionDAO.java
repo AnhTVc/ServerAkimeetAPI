@@ -36,7 +36,7 @@ public class CollectionDAO {
      * @param type
      * @return
      */
-    public ArrayList<Campaign> getCollection(int type, int limit, int offset){
+    public ArrayList<Restaurant> getCollection(int type, int limit, int offset){
         String query = "SELECT  id_sale,sale_off, time, from_date,to_date, sale.id_restaurant " +
                 "FROM  sale, collection " +
                 "WHERE sale.id_restaurant = collection.id_restaurant " +
@@ -54,7 +54,7 @@ public class CollectionDAO {
             preparedStatement.setInt(3, offset);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            return DAOUtil.resultSetToCampains(resultSet,con);
+            return DAOUtil.resultSetToRestaurant(resultSet,con);
         } catch (SQLException e) {
             //e.printStackTrace();
             logger.error(e);

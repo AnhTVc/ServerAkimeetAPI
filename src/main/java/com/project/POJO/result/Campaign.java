@@ -12,19 +12,14 @@ import java.util.ArrayList;
 public class Campaign {
 
     private Restaurant restaurant;
-    private Sale sale;
-    private ArrayList<GroupMenu> group_menus;
 
-    public Campaign(Restaurant restaurant, Sale sale) {
-        this.sale = sale;
+    public Campaign(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
 
 
 
-    public Campaign( Restaurant restaurant,Sale sale, ArrayList<GroupMenu> group_menus) {
-        this.sale = sale;
+    public Campaign( Restaurant restaurant, ArrayList<GroupMenu> group_menus) {
         this.restaurant = restaurant;
-        this.group_menus = group_menus;
     }
 }

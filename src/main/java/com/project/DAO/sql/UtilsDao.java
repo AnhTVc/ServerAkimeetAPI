@@ -109,8 +109,6 @@ public class UtilsDao {
             }
 
             restaurantDAO.setCollections(collections);
-
-
             return restaurantDAO;
 
         } catch (SQLException e) {

@@ -63,12 +63,51 @@ public class DAOUtil {
                     sale = new Sale(rs.getString("id_sale"), rs.getInt("sale_off"), rs.getString("time"), rs.getString("from_date"), rs.getString("to_date"));
                     //restaurant = new RestaurantDAO(idRestaurant,restaurant.getNameRestaurant(),address,restaurant.getAvatar());
 
-                    campaign = new Campaign(restaurant, sale);
+                    ArrayList<Sale> sales = new ArrayList<>();
+                    sales.add(sale);
+                    restaurant.setSales(sales);
+                    campaign = new Campaign(restaurant);
                     campaigns.add(campaign);
                 }
                 if(campaigns.size() > 0)
                     return campaigns;
                 return null;
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @param rs
+     * @return
+     */
+    public static ArrayList<Restaurant> resultSetToRestaurant(ResultSet rs, Connection con){
+        if(rs != null){
+            ArrayList<Restaurant> restaurants = new ArrayList<>();
+            Restaurant restaurant;
+            Sale sale;
+            String address;
+            String idRestaurant;
+
+            try {
+                while (rs.next()) {
+                    idRestaurant = rs.getString("id_restaurant");
+                    restaurant = UtilsDao.getRestaurant(con,idRestaurant);
+                    //address = UtilsDao.getAddress(con,idRestaurant);
+                    //restaurant.setAddress(address);
+                    sale = new Sale(rs.getString("id_sale"), rs.getInt("sale_off"), rs.getString("time"), rs.getString("from_date"), rs.getString("to_date"));
+                    //restaurant = new RestaurantDAO(idRestaurant,restaurant.getNameRestaurant(),address,restaurant.getAvatar());
+
+                    ArrayList<Sale> sales = new ArrayList<>();
+                    sales.add(sale);
+                    restaurant.setSales(sales);
+                    restaurants.add(restaurant);
+                }
+
+                return restaurants;
             }catch (SQLException e){
                 e.printStackTrace();
             }

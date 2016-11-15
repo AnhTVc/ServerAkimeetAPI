@@ -52,7 +52,7 @@ public class HomeDao {
                 " FROM `sale` ORDER BY sale_off DESC " +
                 " LIMIT 8;";
         ResultSet rs = DAOUtil.executeQuery(con, query);
-        return new SaleResult(DAOUtil.resultSetToCampains(rs, con));
+        return new SaleResult(DAOUtil.resultSetToRestaurant(rs, con));
     }
 
 
@@ -66,7 +66,7 @@ public class HomeDao {
                 " LIMIT 8;";
 
         ResultSet rs = DAOUtil.executeQuery(con, query);
-        return new SaleResult(DAOUtil.resultSetToCampains(rs, con));
+        return new SaleResult(DAOUtil.resultSetToRestaurant(rs, con));
     }
 
     /**
@@ -78,7 +78,7 @@ public class HomeDao {
                 " FROM  `sale` ORDER BY transaction DESC " +
                 " LIMIT 8;";
         ResultSet rs = DAOUtil.executeQuery(con, query);
-        return new SaleResult(DAOUtil.resultSetToCampains(rs, con));
+        return new SaleResult(DAOUtil.resultSetToRestaurant(rs, con));
     }
 
     /**
@@ -90,6 +90,6 @@ public class HomeDao {
                 " FROM  `sale` ORDER BY business DESC " +
                 " LIMIT 4;";
         ResultSet rs = DAOUtil.executeQuery(con, query);
-        return new SaleResult(DAOUtil.resultSetToCampains(rs, con));
+        return new SaleResult(DAOUtil.resultSetToRestaurant(rs, con));
     }
 }

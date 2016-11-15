@@ -1,5 +1,7 @@
 package com.project.POJO.result;
 
+import com.project.POJO.Restaurant;
+
 import java.util.ArrayList;
 
 /**
@@ -7,9 +9,14 @@ import java.util.ArrayList;
  */
 public class SaleResult {
 
-    private ArrayList<Campaign> campaigns;
+   /* private ArrayList<Campaign> campaigns;
 
     public SaleResult(ArrayList<Campaign> campaigns) {
         this.campaigns = campaigns;
+    }*/
+
+    private ArrayList<Restaurant> restaurants;
+    public SaleResult(ArrayList<Restaurant> restaurants){
+        this.restaurants = restaurants;
     }
 }

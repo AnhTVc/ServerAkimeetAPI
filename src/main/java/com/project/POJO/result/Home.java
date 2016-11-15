@@ -16,8 +16,6 @@ public class Home {
         this.special_sale = special_sale;
         this.sale_business = sale_business;
     }
-
-
     public Home(SaleResult sale_addtion) {
         this.sale_addtion = sale_addtion;
     }

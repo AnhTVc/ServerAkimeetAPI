@@ -2,6 +2,7 @@ package com.project.DAO.sql;
 
 import com.project.POJO.Address;
 import com.project.POJO.Restaurant;
+import com.project.POJO.Sale;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -89,6 +90,29 @@ public class RestaurantDAO {
                 }
 
                 restaurant.setPoistion(address);
+                // Find sale
+                String strSale = "SELECT * from sale WHERE id_restaurant = ?";
+                PreparedStatement preparedStatementSale = connection.prepareStatement(strSale);
+
+                preparedStatementSale.setInt(1, Integer.parseInt(restaurant.getId_restaurant()));
+
+                ResultSet resultSetSale = preparedStatementSale.executeQuery();
+                ArrayList<Sale> sales = new ArrayList<>();
+                Sale sale;
+                while(resultSetSale.next()){
+                    sale = new Sale();
+
+                    sale.setBusiness(resultSetSale.getInt("business"));
+                    sale.setFrom_date(resultSetSale.getDate("from_date").toString());
+                    sale.setTo_date(resultSetSale.getDate("to_date").toString());
+                    sale.setId_sale(String.valueOf(resultSetSale.getInt("id_sale")));
+                    sale.setSale_off(resultSetSale.getInt("sale_off"));
+                    sale.setTime(resultSetSale.getString("time"));
+
+                    sales.add(sale);
+                }
+                restaurant.setSales(sales);
+
                 restaurants.add(restaurant);
             }
 
@@ -151,6 +175,30 @@ public class RestaurantDAO {
                 }
 
                 restaurant.setPoistion(address);
+
+                // Find sale
+                String strSale = "SELECT * from sale WHERE id_restaurant = ?";
+                PreparedStatement preparedStatementSale = connection.prepareStatement(strSale);
+
+                preparedStatementSale.setInt(1, Integer.parseInt(restaurant.getId_restaurant()));
+
+                ResultSet resultSetSale = preparedStatementSale.executeQuery();
+                ArrayList<Sale> sales = new ArrayList<>();
+                Sale sale;
+                while(resultSetSale.next()){
+                    sale = new Sale();
+
+                    sale.setBusiness(resultSetSale.getInt("business"));
+                    sale.setFrom_date(resultSetSale.getDate("from_date").toString());
+                    sale.setTo_date(resultSetSale.getDate("to_date").toString());
+                    sale.setId_sale(String.valueOf(resultSetSale.getInt("id_sale")));
+                    sale.setSale_off(resultSetSale.getInt("sale_off"));
+                    sale.setTime(resultSetSale.getString("time"));
+
+                    sales.add(sale);
+                }
+                restaurant.setSales(sales);
+
                 restaurants.add(restaurant);
             }
 

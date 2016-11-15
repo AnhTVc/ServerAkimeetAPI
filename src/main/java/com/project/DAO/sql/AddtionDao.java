@@ -60,7 +60,7 @@ public class AddtionDao {
         Campaign campaign;
         SaleResult saleResult = null;
         ArrayList<Campaign> listCampaign = new ArrayList<>();
-
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
 
         switch (type) {
             case "last_sale" : orderBy = "time_create";
@@ -94,10 +94,13 @@ public class AddtionDao {
                 address = UtilsDao.getAddress( con, idRestaurant);
                 sale = new Sale(idSale, saleOff, hourSale, fromDate, toDate);
                 restaurant = new Restaurant(idRestaurant,restaurant.getNameRestaurant(),address,restaurant.getAvatar());
-                campaign = new Campaign(restaurant, sale);
-                listCampaign.add(campaign);
+
+                ArrayList<Sale> sales = new ArrayList<>();
+                sales.add(sale);
+                restaurant.setSales(sales);
+                restaurants.add(restaurant);
             }
-            saleResult = new SaleResult(listCampaign);
+            saleResult = new SaleResult(restaurants);
 
         } catch (SQLException e) {
             e.printStackTrace();
