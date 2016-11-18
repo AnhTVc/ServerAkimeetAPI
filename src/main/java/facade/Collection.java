@@ -18,10 +18,9 @@ import java.util.ArrayList;
  */
 
 
-@Path("/collection")
+@Path("/tim-kiem-theo-chu-de")
 public class Collection {
     private static final Logger logger = Logger.getLogger(AddtionFacade.class);
-
     /**
      * Function get collection
      * @param limit
@@ -39,11 +38,9 @@ public class Collection {
 
         Gson gson = new Gson();
         CollectionDAO collectionDAO = new CollectionDAO();
-       // ArrayList<Campaign> campaigns = collectionDAO.getCollection(type, limit, offset);
         SaleResult saleResult = new SaleResult(collectionDAO.getCollection(type, limit, offset));
-        Home home = new Home(saleResult);
         collectionDAO.closeBD();
         stopWatch.stop();
-        return gson.toJson(home);
+        return gson.toJson(saleResult);
     }
 }

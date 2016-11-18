@@ -5,12 +5,14 @@ import com.project.DAO.sql.RestaurantDAO;
 import com.project.POJO.Restaurant;
 import com.project.POJO.result.Drink;
 import com.project.POJO.result.ResultAPI;
+import com.project.POJO.result.SaleResult;
 import com.project.util.constant.Define;
 import org.apache.commons.lang.time.StopWatch;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 
@@ -21,6 +23,24 @@ import java.util.ArrayList;
 @Path("/do-uong")
 public class DrinkFace {
     static final int LIMIT = 8;
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    @Path("/tat-ca")
+    public String getEntertainment(@QueryParam("limit") int limit,
+                                   @QueryParam("offset") int offset){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Gson gson = new Gson();
+        RestaurantDAO restaurantDAO = new RestaurantDAO();
+        ArrayList<Restaurant> restaurants = restaurantDAO.getRestaurantByType(Define.RESTAURANT_TYPE_DRINK);
+
+        SaleResult saleResult = new SaleResult(restaurants);
+
+        stopWatch.stop();
+        restaurantDAO.close();
+        return gson.toJson(saleResult);
+    }
 
     /**
      * Tra la danh sach nha hang do uong

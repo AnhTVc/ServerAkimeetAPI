@@ -5,12 +5,15 @@ import com.project.DAO.sql.RestaurantDAO;
 import com.project.POJO.Restaurant;
 import com.project.POJO.result.Entertainment;
 import com.project.POJO.result.ResultAPI;
+import com.project.POJO.result.SaleResult;
 import com.project.util.constant.Define;
 import org.apache.commons.lang.time.StopWatch;
+import org.junit.runners.Parameterized;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 
@@ -41,6 +44,25 @@ public class EntertainmentFace {
         stopWatch.stop();
         restaurantDAO.close();
         return gson.toJson(entertainment);
+    }
+
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    @Path("/tat-ca")
+    public String getEntertainment(@QueryParam("limit") int limit,
+                                       @QueryParam("offset") int offset){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Gson gson = new Gson();
+        RestaurantDAO restaurantDAO = new RestaurantDAO();
+        ArrayList<Restaurant> restaurants = restaurantDAO.getRestaurantByType(Define.RESTAURANT_TYPE_ENTERTAINMENT, limit, offset);
+
+        SaleResult saleResult = new SaleResult(restaurants);
+
+        stopWatch.stop();
+        restaurantDAO.close();
+        return gson.toJson(saleResult);
     }
 
 
