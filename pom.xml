@@ -138,12 +138,6 @@
             <artifactId>genson</artifactId>
             <version>0.99</version>
         </dependency>
-
-
-
-
-
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -218,6 +212,7 @@
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
 
     </dependencies>
 

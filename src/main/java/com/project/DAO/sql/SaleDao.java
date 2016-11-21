@@ -192,11 +192,7 @@ public class SaleDao {
                 idRestaurant = rs.getString("id_restaurant");
 
                 restaurant = UtilsDao.getRestaurant(con, idRestaurant);
-                address = UtilsDao.getAddress(con, idRestaurant);
-                //TODO bug
-                if(address != null){
-                    restaurant.setAddress(address);
-                }
+
                 sale = new Sale(String.valueOf(rs.getInt("id_sale")), saleOff, hourSale, fromDate, toDate);
 
                 ArrayList<Sale> sales = new ArrayList<>();

@@ -109,7 +109,30 @@ public class UtilsDao {
             }
 
             restaurantDAO.setCollections(collections);
-            return restaurantDAO;
+
+            //Sale
+            String strSale = "SELECT * from sale WHERE id_restaurant = ?";
+            PreparedStatement preparedStatementSale = con.prepareStatement(strSale);
+
+            preparedStatementSale.setInt(1, Integer.parseInt(id_restaurant));
+            ResultSet resultSetSale = preparedStatementSale.executeQuery();
+            ArrayList<Sale> sales = new ArrayList<>();
+            Sale sale;
+            if(resultSetSale.next()){
+                sale = new Sale();
+
+                sale.setBusiness(resultSetSale.getInt("business"));
+                sale.setFrom_date(resultSetSale.getDate("from_date").toString());
+                sale.setTo_date(resultSetSale.getDate("to_date").toString());
+                sale.setId_sale(String.valueOf(resultSetSale.getInt("id_sale")));
+                sale.setSale_off(resultSetSale.getInt("sale_off"));
+                sale.setTime(resultSetSale.getString("time"));
+
+                sales.add(sale);
+                restaurantDAO.setSales(sales);
+
+                return restaurantDAO;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();

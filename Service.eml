@@ -64,5 +64,8 @@
 		<level name="Maven: org.apache.commons:commons-pool2:2.2" value="project"/>
 		<level name="Maven: commons-dbcp:commons-dbcp:1.4" value="project"/>
 		<level name="Maven: commons-pool:commons-pool:1.5.4" value="project"/>
+		<level name="Maven: javax.mail:mail:1.4.7" value="project"/>
+		<level name="Maven: javax.activation:activation:1.1" value="project"/>
+		<level name="mongo-java-driver-3.3.0" value="project"/>
 	</levels>
 </component>

@@ -60,5 +60,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: org.apache.commons:commons-pool2:2.2"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: commons-dbcp:commons-dbcp:1.4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: commons-pool:commons-pool:1.5.4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: javax.mail:mail:1.4.7"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: javax.activation:activation:1.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mongo-java-driver-3.3.0"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -80,4 +80,9 @@ public class Constant {
 	//public static final String UPLOAD_DIRECTORY = "/www/data/images";
 	public static final String UPLOAD_DIRECTORY = "/www/data/images";
 	public static final String LINK_IN_SERVER = "/"; //noi link anh
+
+	//--------------------------------------------------------------------//
+	public static final String URL_MONGODB = "mongodb://localhost:27017";
+	public static final String DATABASE_MONGODB = "akimeet";
+	public static final String COLLECTION_FEEBACK = "feedback";
 }

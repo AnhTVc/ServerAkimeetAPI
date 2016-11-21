@@ -10,6 +10,16 @@ public class Restaurant {
     private String address;
     private ArrayList<Collection> collections;
 
+    private ArrayList<Feedback> feedbacks;
+
+    public void setFeedbacks(ArrayList<Feedback> feedbacks) {
+        this.feedbacks = feedbacks;
+    }
+
+    public ArrayList<Feedback> getFeedbacks() {
+        return feedbacks;
+    }
+
     String extend;
 
     public void setExtend(String extend) {
