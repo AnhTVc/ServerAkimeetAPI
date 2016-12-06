@@ -28,7 +28,7 @@ public class Test {
 			customer.setIdCustomer("123456");
 
 			feedback.setCustomer(customer);
-			feedback.setIdRestaurant("123456 Id restaurant");
+			feedback.setIdRestaurant("1214312208");
 			feedback.setImages("Image");
 			Rate rate = new Rate();
 			rate.setPrice(8);

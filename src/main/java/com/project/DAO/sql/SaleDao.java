@@ -5,6 +5,7 @@ import com.project.POJO.result.Campaign;
 import com.project.POJO.Restaurant;
 import com.project.POJO.Sale;
 import com.project.POJO.result.SaleResult;
+import com.project.mongdb.feedback.FeedbackMongoDBDAO;
 import com.project.util.DAOUtil;
 import org.apache.log4j.Logger;
 
@@ -87,7 +88,7 @@ public class SaleDao {
                 sale = new Sale(idSale, saleOff, hourSale, fromDate, toDate);
                 restaurant = new Restaurant(idRestaurant,restaurant.getNameRestaurant(),address,
                         restaurant.getAvatar(), restaurant.getPhoneNumber(), restaurant.getIntroduce(), restaurant.getImages());
-
+                restaurant.setFeedbacks(FeedbackMongoDBDAO.findFeedbackByIdRestaurant(restaurant.getId_restaurant()));
                 ArrayList<Sale> sales = new ArrayList<>();
                 sales.add(sale);
                 restaurant.setSales(sales);

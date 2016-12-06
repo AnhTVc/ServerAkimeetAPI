@@ -1,6 +1,7 @@
 package com.project.DAO.sql;
 
 import com.project.POJO.*;
+import com.project.mongdb.feedback.FeedbackMongoDBDAO;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -109,6 +110,9 @@ public class UtilsDao {
             }
 
             restaurantDAO.setCollections(collections);
+            //feedback
+            ArrayList<Feedback> feedbacks = FeedbackMongoDBDAO.findFeedbackByIdRestaurant(restaurantDAO.getId_restaurant());
+            restaurantDAO.setFeedbacks(feedbacks);
 
             //Sale
             String strSale = "SELECT * from sale WHERE id_restaurant = ?";
