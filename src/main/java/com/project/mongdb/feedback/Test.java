@@ -31,10 +31,7 @@ public class Test {
 			feedback.setIdRestaurant("1214312208");
 			feedback.setImages("Image");
 			Rate rate = new Rate();
-			rate.setPrice(8);
-			rate.setQuality(8);
-			rate.setService(8);
-			rate.setSpace(8);
+
 
 			feedback.setRate(rate);
 			feedback.setTimeCreate(new Date());

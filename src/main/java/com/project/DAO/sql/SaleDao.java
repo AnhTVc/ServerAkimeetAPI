@@ -86,11 +86,13 @@ public class SaleDao {
                 address = UtilsDao.getAddress(con, idRestaurant);
                 groupMenu = UtilsDao.getMenu(pst, con, idRestaurant);
                 sale = new Sale(idSale, saleOff, hourSale, fromDate, toDate);
-                restaurant = new Restaurant(idRestaurant,restaurant.getNameRestaurant(),address,
-                        restaurant.getAvatar(), restaurant.getPhoneNumber(), restaurant.getIntroduce(), restaurant.getImages());
-                restaurant.setFeedbacks(FeedbackMongoDBDAO.findFeedbackByIdRestaurant(restaurant.getId_restaurant()));
+              /*  restaurant = new Restaurant(idRestaurant,restaurant.getNameRestaurant(),address,
+                        restaurant.getAvatar(), restaurant.getPhoneNumber(), restaurant.getIntroduce(), restaurant.getImages());*/
+                //restaurant.setFeedbacks(FeedbackMongoDBDAO.findFeedbackByIdRestaurant(restaurant.getId_restaurant()));
+                //restaurant.setRates(FeedbackMongoDBDAO.findRatingByIdRestaurant(restaurant.getId_restaurant()));
                 ArrayList<Sale> sales = new ArrayList<>();
                 sales.add(sale);
+                restaurant.setAddress(address);
                 restaurant.setSales(sales);
                 restaurant.setGroupMenus(groupMenu);
             }

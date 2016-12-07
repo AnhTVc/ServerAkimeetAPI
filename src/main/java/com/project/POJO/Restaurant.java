@@ -11,6 +11,15 @@ public class Restaurant {
     private ArrayList<Collection> collections;
 
     private ArrayList<Feedback> feedbacks;
+    private ArrayList<Rate> rates;
+
+    public void setRates(ArrayList<Rate> rates) {
+        this.rates = rates;
+    }
+
+    public ArrayList<Rate> getRates() {
+        return rates;
+    }
 
     public void setFeedbacks(ArrayList<Feedback> feedbacks) {
         this.feedbacks = feedbacks;

@@ -7,6 +7,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 import com.project.POJO.Feedback;
+import com.project.POJO.Rate;
 import com.project.util.constant.Constant;
 import org.apache.log4j.Logger;
 
@@ -65,6 +66,31 @@ public class FeedbackMongoDBDAO {
         mongoDBUtil.closeConnection();
 
         logger.info("Insert feedback complete");
+    }
+
+    public static ArrayList<Rate> findRatingByIdRestaurant(String idRestaurant){
+        logger.info("Find all rating of Restaurant");
+        MongoDBUtil mongoDBUtil = new MongoDBUtil();
+        mongoDBUtil.getConnectionMongoDB();
+        BasicDBObject whereQuery = new BasicDBObject();
+        whereQuery.put("idRestaurant", idRestaurant);
+        DBCursor dbCursorFeedback = mongoDBUtil.findWithWhereQuery(Constant.DATABASE_MONGODB, Constant.COLLECTION_RATING, whereQuery);
+
+        ArrayList<Rate> rates = new ArrayList<>();
+        Rate rate;
+
+        Gson gson = new Gson();
+        if(dbCursorFeedback!= null){
+            while(dbCursorFeedback.hasNext()) {
+                DBObject dbObject = dbCursorFeedback.next();
+                rate = gson.fromJson(dbObject.toString(), Rate.class);
+                rates.add(rate);
+            }
+        }
+
+        mongoDBUtil.closeConnection();
+        logger.info("Find complete");
+        return rates;
     }
 
 }

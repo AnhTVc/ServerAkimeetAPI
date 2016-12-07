@@ -1,45 +1,25 @@
 package com.project.POJO;
 
 public class Rate {
-	private int price;
-	private int quality;
-	private int service;
-	private int space;
-	public Rate(){
-
+	private Customer customer;
+	private String rating;
+	private String idRestaurant;
+	public Customer getCustomer() {
+		return customer;
 	}
-	public Rate(int price,
-			int quality,
-			int service,
-			int space){
-		this.price = price;
-		this.quality = quality;
-		this.service = service;
-		this.space = space;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
-	
-	public int getPrice() {
-		return price;
+	public String getRating() {
+		return rating;
 	}
-	public void setPrice(int price) {
-		this.price = price;
+	public void setRating(String rating) {
+		this.rating = rating;
 	}
-	public int getQuality() {
-		return quality;
+	public String getIdRestaurant() {
+		return idRestaurant;
 	}
-	public void setQuality(int quality) {
-		this.quality = quality;
-	}
-	public int getService() {
-		return service;
-	}
-	public void setService(int service) {
-		this.service = service;
-	}
-	public int getSpace() {
-		return space;
-	}
-	public void setSpace(int space) {
-		this.space = space;
+	public void setIdRestaurant(String idRestaurant) {
+		this.idRestaurant = idRestaurant;
 	}
 }

@@ -110,9 +110,7 @@ public class UtilsDao {
             }
 
             restaurantDAO.setCollections(collections);
-            //feedback
-            ArrayList<Feedback> feedbacks = FeedbackMongoDBDAO.findFeedbackByIdRestaurant(restaurantDAO.getId_restaurant());
-            restaurantDAO.setFeedbacks(feedbacks);
+
 
             //Sale
             String strSale = "SELECT * from sale WHERE id_restaurant = ?";
@@ -174,7 +172,12 @@ public class UtilsDao {
             e.printStackTrace();
             logger.warn("error query");
         }
-        return new Restaurant(id_restaurant, nameRestaurant, avatarRestaurant, phoneRestaurant, introRestaurant, imgsRestaurant);
+
+        Restaurant restaurant = new Restaurant(id_restaurant, nameRestaurant, avatarRestaurant, phoneRestaurant, introRestaurant, imgsRestaurant);
+
+        restaurant.setFeedbacks(FeedbackMongoDBDAO.findFeedbackByIdRestaurant(id_restaurant));
+        restaurant.setRates(FeedbackMongoDBDAO.findRatingByIdRestaurant(id_restaurant));
+        return restaurant;
     }
 
     public static ArrayList<GroupMenu> getMenu(PreparedStatement pst, Connection con,String id_restaurant) {
