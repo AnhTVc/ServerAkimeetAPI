@@ -1,11 +1,9 @@
 package com.project.mongdb.feedback;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
 import com.project.POJO.Feedback;
 import com.project.POJO.Rate;
 import com.project.util.constant.Constant;
