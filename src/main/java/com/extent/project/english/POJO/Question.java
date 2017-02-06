@@ -6,10 +6,20 @@ package com.extent.project.english.POJO;
 public class Question {
     private int index;
     private String content; // past 6, content null
-    private String answerA;
-    private String answerB;
-    private String answerC;
-    private String answerD;
-    private String answer;
-    private String explain;
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public String getContent() {
+        return content;
+    }
 }

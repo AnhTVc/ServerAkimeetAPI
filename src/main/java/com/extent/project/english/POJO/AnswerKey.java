@@ -1,20 +1,15 @@
 package com.extent.project.english.POJO;
 
 /**
- * Created by VietAnh on 1/24/2017.
+ * Created by VietAnh on 2/7/2017.
  */
-public class QuestionPast5 {
+public class AnswerKey {
     private int index;
-    private String question;
     private String answer;
     private String explain;
 
     public void setIndex(int index) {
         this.index = index;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
     }
 
     public void setAnswer(String answer) {
@@ -27,10 +22,6 @@ public class QuestionPast5 {
 
     public int getIndex() {
         return index;
-    }
-
-    public String getQuestion() {
-        return question;
     }
 
     public String getAnswer() {
