@@ -12,4 +12,27 @@ public class QuestionPast6 {
     private String readContent;
     private ArrayList<AnswerKey> answerKeys; // Danh sách các câu tra lời cho từng bài viết (3 câu hỏi trên 1 bài)
 
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public void setReadContent(String readContent) {
+        this.readContent = readContent;
+    }
+
+    public void setAnswerKeys(ArrayList<AnswerKey> answerKeys) {
+        this.answerKeys = answerKeys;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public String getReadContent() {
+        return readContent;
+    }
+
+    public ArrayList<AnswerKey> getAnswerKeys() {
+        return answerKeys;
+    }
 }
