@@ -234,8 +234,17 @@ public class Main {
             /*
             Text get question past 7
              */
-            String strTempOne = "Questions ";
+            //---------------------------------------------------------
             String strTempTwo = " refer to the follow ing job announcem ent.";
+            int countBlockQuestionPast7 = StringUtils.countMatches(PDFUtil.stringRemoveSubString(toeicTestTextQuestion, "\\s+"),
+                    PDFUtil.stringRemoveSubString(strTempTwo, "\\s+"));
+            for(int i =0; i< countBlockQuestionPast7; i++){
+                // Xu ly tung block
+            }
+
+            //---------------------------------------------------------
+            String strTempOne = "Questions ";
+
             for(int i = indexPast7; i< indexEndQuestion; i++ ){
                 PDFTextStripper readerOnePage = new PDFTextStripper();
                 readerOnePage.setStartPage(i);
