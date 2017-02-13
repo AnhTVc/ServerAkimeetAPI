@@ -1,5 +1,7 @@
 package com.extent.project.english.util;
 
+import com.extent.project.english.POJO.Question;
+import com.extent.project.english.POJO.QuestionPast7;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -8,7 +10,10 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -41,6 +46,84 @@ public class PDFUtil {
         }
 
         return null;
+    }
+
+    /**
+     * Get questionPast 7 theo block
+     * @param textBlock
+     * @return
+     */
+    public static QuestionPast7 getQuestionPast7InBlock(String textBlock){
+        try {
+            QuestionPast7 questionPast7 = new QuestionPast7();
+            ArrayList<Question> questions = new ArrayList<>();
+            Question question;
+
+            // Lấy danh sách các câu hỏi
+            ArrayList<Integer> questionIndexs = PDFUtil.getArrayInt(
+                    PDFUtil.stringRemoveSubString
+                            (textBlock.substring(10, 17), "\\s+"), "-");
+            for(int j = questionIndexs.get(0); j <= questionIndexs.get(1); j ++){
+                String strTemp = null;
+
+                try {
+                    // Lấy nội dung từng câu hỏi
+                    strTemp = textBlock.substring(textBlock.indexOf(String.valueOf(j) + ". "),
+                            textBlock.indexOf(String.valueOf(j+1) + ". "));
+                }catch (Exception e){
+                    e.printStackTrace();
+                    strTemp = "ERROR READ QUESTION PAST7";
+                }
+                question = new Question();
+                question.setContent(strTemp);
+                question.setIndex(j);
+
+                // TODO Find answer past 7
+                questions.add(question);
+            }
+
+            // Lấy bài đọc cho block
+            questionPast7.setReadContent(textBlock.substring(textBlock.indexOf("\n"), questionIndexs.get(0)));
+            questionPast7.setQuestions(questions);
+
+            return questionPast7;
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    /**
+     * Lưu String tới file
+     * @param str
+     * @param url
+     * @return
+     */
+    public static boolean stringToFile(String str, String url){
+        BufferedWriter writer = null;
+        try
+        {
+            writer = new BufferedWriter( new FileWriter( url));
+            writer.write( str);
+
+        }
+        catch ( IOException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                if ( writer != null)
+                    writer.close( );
+                return  true;
+            }
+            catch ( IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
     public static void main(String[] agr){

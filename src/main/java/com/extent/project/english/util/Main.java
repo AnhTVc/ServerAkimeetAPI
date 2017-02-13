@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import org.apache.commons.lang.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -15,14 +16,15 @@ public class Main {
     private static final String NAMEBOOK = "4-More Practice Tests";
     private static final String NAMETOIECTESTONE = "Practice Test One";
     private static final String ERROR = "ERROR READ QUESTION";
+    private static final String PATH_RESULT = "D:\\Data\\Du An\\Toiec\\result.txt";
 
     /**
      * Lay thong tin bai toiec :)
      * @param document
-     * @param indexBeginQuestion
-     * @param indexEndQuestion
-     * @param indexBeginAnswer
-     * @param indexEndAnswer
+     * @param indexBeginQuestion: vị trí bắt đầu của phần câu hỏi
+     * @param indexEndQuestion: vị trí kết thúc của phần câu hỏi
+     * @param indexBeginAnswer: vị trí bắt đầu của phần câu trả lời
+     * @param indexEndAnswer: vị trí kết thúc của phần câu trả lời
      * @return
      */
     private static ToiecTest getToiecTest(PDDocument document,
@@ -31,16 +33,17 @@ public class Main {
                                           int indexBeginAnswer,
                                           int indexEndAnswer){
         try {
+            //Load document to text question and text answer
             PDFTextStripper reader = new PDFTextStripper();
             PDFTextStripper readerAnswer = new PDFTextStripper();
             reader.setStartPage(indexBeginQuestion);
             reader.setEndPage(indexEndQuestion);
-
-            String toeicTestTextQuestion = reader.getText(document);
             readerAnswer.setStartPage(indexBeginAnswer);
             readerAnswer.setEndPage(indexEndAnswer);
 
+            String toeicTestTextQuestion = reader.getText(document);
             String toeicTestTextAnswer = readerAnswer.getText(document);
+
             // Init Object
             ArrayList<QuestionPast1> questionPast1s = new ArrayList<>();
             ArrayList<QuestionPast2> questionPast2s = new ArrayList<>();
@@ -59,6 +62,9 @@ public class Main {
 
             /****************************************************************/
             /*                      GET PAST 1                              */
+            /* Describe:    Fix url image and audio                         */
+            /*              Load answer, explain to Object                  */
+            /*              Load with index question                        */
             /****************************************************************/
 
             for(int i = 1; i <= 10; i++){
@@ -85,6 +91,7 @@ public class Main {
 
             /****************************************************************/
             /*                      GET PAST 2                              */
+            /* Describe: same load in question past 1                       */
             /****************************************************************/
             for(int i = 11; i <= 40; i ++){
                 questionPast2 = new QuestionPast2();
@@ -106,6 +113,7 @@ public class Main {
 
             /****************************************************************/
             /*                      GET PAST 3                              */
+            /* Describe: same load in question past 1                       */
             /****************************************************************/
             ToiecTest toiecTest = new ToiecTest();
             for(int i = 41; i <= 70; i++){
@@ -133,6 +141,7 @@ public class Main {
 
             /****************************************************************/
             /*                      GET PAST 4                              */
+            /* Describe: same load in question past 1                       */
             /****************************************************************/
             for(int i = 71; i <= 100; i++){
                 questionPast4 = new QuestionPast4();
@@ -157,6 +166,7 @@ public class Main {
 
             /****************************************************************/
             /*                      GET PAST 5                              */
+            /* Describe: same load in question past 1                       */
             /****************************************************************/
             for(int i = 101; i <= 140; i++){
                 questionPast5 = new QuestionPast5();
@@ -213,8 +223,13 @@ public class Main {
                 questionPast6s.add(questionPast6);
 
             }
-
-            // TODO get data past7 question, find
+            /****************************************************************/
+            /*                      GET PAST 7                              */
+            /* Describe:    Load text question past 7 to String             */
+            /*              analyze to block: one block muti question       */
+            /*              Past7 muti block                                */
+            /****************************************************************/
+            // Load text past 7
             String past7 = "PART 7";
             int indexPast7 = 0;
             for(int i = indexBeginQuestion; i< indexEndQuestion; i++){
@@ -234,69 +249,70 @@ public class Main {
             /*
             Text get question past 7
              */
+            PDFTextStripper readerPast7Question = new PDFTextStripper();
+            readerPast7Question.setStartPage(indexPast7 + 1);
+            readerPast7Question.setEndPage(indexEndQuestion);
+            String textQuestionPast7 = readerPast7Question.getText(document);
+            String strTempOne = "Questions ";
             //---------------------------------------------------------
-            String strTempTwo = " refer to the follow ing job announcem ent.";
-            int countBlockQuestionPast7 = StringUtils.countMatches(PDFUtil.stringRemoveSubString(toeicTestTextQuestion, "\\s+"),
-                    PDFUtil.stringRemoveSubString(strTempTwo, "\\s+"));
-            for(int i =0; i< countBlockQuestionPast7; i++){
-                // Xu ly tung block
+            //String strTempTwo = " re fer  to th e  fo llo w in g  jo b  an n o u n cem en t";
+            int indexTemp = textQuestionPast7.indexOf(strTempOne);
+            ArrayList<Integer> intArrayBlockPast7 = new ArrayList<>();
+           // intArrayBlockPast7.add(indexTemp);
+            while (indexTemp >= 0) {  // indexOf returns -1 if no match found
+                intArrayBlockPast7.add(indexTemp);
+                indexTemp = textQuestionPast7.indexOf(strTempOne, indexTemp + 1);
+
+            }
+            for(int i =0; i< intArrayBlockPast7.size() -1; i++){
+                String tempBlockPast7 = textQuestionPast7.substring(intArrayBlockPast7.get(i), intArrayBlockPast7.get(i + 1));
+                try{
+                    questionPast7 = PDFUtil.getQuestionPast7InBlock(tempBlockPast7);
+                    if(questionPast7 != null)
+                        questionPast7s.add(questionPast7);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
 
-            //---------------------------------------------------------
-            String strTempOne = "Questions ";
-
-            for(int i = indexPast7; i< indexEndQuestion; i++ ){
-                PDFTextStripper readerOnePage = new PDFTextStripper();
-                readerOnePage.setStartPage(i);
-                readerOnePage.setEndPage(i);
-                String pageText = readerOnePage.getText(document);
-
-                int indextempone = 10;
-                int indextemptwo = 17;
-
-                if(indextempone > 0 && indextemptwo > 0){
-                    // Remove khoang trang
-                    ArrayList<Integer> questionIndexs = PDFUtil.getArrayInt(
-                            PDFUtil.stringRemoveSubString
-                                    (pageText.substring(indextempone, indextemptwo), "\\s+"), "-");
-
-                    questionPast7 = new QuestionPast7();
-                    ArrayList<Question> questions = new ArrayList<>();
-                    Question questionInPast7;
-                    for(int j = questionIndexs.get(0); j <= questionIndexs.get(1); j ++){
-                        String strTemp = null;
-
-                        try {
-                            strTemp = toeicTestTextQuestion.substring(toeicTestTextQuestion.indexOf(String.valueOf(j) + ". "),
-                                    toeicTestTextQuestion.indexOf(String.valueOf(j+1) + ". "));
-                        }catch (Exception e){
-                            e.printStackTrace();
-                            strTemp = "ERROR READ QUESTION PAST7";
-                        }
-                        questionInPast7 = new Question();
-                        questionInPast7.setContent(strTemp);
-                        questionInPast7.setIndex(j);
-
-                        // TODO Find answer past 7
-
-                        try{
-                            String temp = toeicTestTextAnswer.substring(toeicTestTextAnswer.indexOf(String.valueOf(j) + ". "),
-                                    toeicTestTextAnswer.indexOf(String.valueOf(j + 1) + ". "));
-                            questionInPast7.setExplain(temp);
-                            questionInPast7.setAnswer(temp.substring(temp.indexOf("(") + 1, temp.indexOf(")")));
-                        }catch (Exception ex){
-                            ex.printStackTrace();
-                            questionInPast7.setExplain(ERROR);
-                        }
-                        questions.add(questionInPast7);
+            // Lấy câu trả lời cho từng câu hỏi của past7
+            for(int i =0; i< questionPast7s.size(); i++){
+                //Xử lý từng block
+                QuestionPast7 questionPastTemp = questionPast7s.get(i);
+                ArrayList<Question> questions = questionPastTemp.getQuestions();
+                Question question;
+                for(int j = 0; j< questions.size(); j++){
+                    question = questions.get(j);
+                    try{
+                        String temp = toeicTestTextAnswer.substring(toeicTestTextAnswer.indexOf(String.valueOf(j) + ". "),
+                                toeicTestTextAnswer.indexOf(String.valueOf(j + 1) + ". "));
+                        question.setExplain(temp);
+                        question.setAnswer(temp.substring(temp.indexOf("(") + 1, temp.indexOf(")")));
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                        question.setExplain(ERROR);
                     }
 
-                    questionPast7.setQuestions(questions);
-                    questionPast7s.add(questionPast7);
+                    // Update question
+                    questions.set(j, question);
                 }
+
+                // Update Block
+                questionPastTemp.setQuestions(questions);
+                questionPast7s.set(i, questionPastTemp);
             }
 
+
+            toiecTest.setQuestionPast1s(questionPast1s);
+            toiecTest.setQuestionPast2s(questionPast2s);
             toiecTest.setQuestionPast3s(questionPast3s);
+            toiecTest.setQuestionPast4s(questionPast4s);
+            toiecTest.setQuestionPast5s(questionPast5s);
+            toiecTest.setQuestionPast6s(questionPast6s);
+            toiecTest.setQuestionPast7s(questionPast7s);
+
+            return toiecTest;
         }catch (Exception e){
             e.printStackTrace();
 
@@ -628,27 +644,14 @@ public class Main {
                 if(StringUtils.contains(PDFUtil.stringRemoveSubString(pageText, "\\s+"), PDFUtil.stringRemoveSubString(stringQuestion, "\\s+"))){
                     checkIsQuestion = true;
                 }
-
-                if(i == 11){
-                    System.out.print("a day roi");
-                }
             }
-
-            System.out.print(String.valueOf(pageIndexPageAnswerKeyOne) + "\n");
-            System.out.print(String.valueOf(pageIndexPageAnswerKeyTwo) + "\n");
-            System.out.print(String.valueOf(pageIndexPageAnswerKeyThree) + "\n");
-            System.out.print(String.valueOf(pageIndexPageAnswerKeyFour) + "\n");
-
-            System.out.print("\n---------------------------------------------------\n");
-            System.out.print(String.valueOf(pageIndexPageQuestionOne) + "\n");
-            System.out.print(String.valueOf(pageIndexPageQuestionTwo) + "\n");
-            System.out.print(String.valueOf(pageIndexPageQuestionThree) + "\n");
-            System.out.print(String.valueOf(pageIndexPageQuestionFour) + "\n");
-
             toiecTestOne = getToiecTest(document, pageIndexPageQuestionOne, pageIndexPageQuestionTwo -1, pageIndexPageAnswerKeyOne, pageIndexPageAnswerKeyTwo -1);
 
             Gson gson = new Gson();
             System.out.print(gson.toJson(toiecTestOne));
+            PDFUtil.stringToFile(gson.toJson(toiecTestOne), PATH_RESULT);
+            // Save to file
+
         }catch (Exception e){
             e.printStackTrace();
         }
