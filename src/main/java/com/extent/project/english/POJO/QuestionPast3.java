@@ -7,7 +7,6 @@ public class QuestionPast3 {
     private int index;
     private String question;
     private String answer;
-    private String audioScript;
     private String explain;
 
     public void setExplain(String explain) {
@@ -26,9 +25,6 @@ public class QuestionPast3 {
         this.answer = answer;
     }
 
-    public void setAudioScript(String audioScript) {
-        this.audioScript = audioScript;
-    }
 
     public int getIndex() {
         return index;
@@ -42,9 +38,6 @@ public class QuestionPast3 {
         return answer;
     }
 
-    public String getAudioScript() {
-        return audioScript;
-    }
 
     public String getExplain() {
         return explain;

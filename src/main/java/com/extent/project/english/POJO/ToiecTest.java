@@ -10,7 +10,11 @@ public class ToiecTest {
     private String nameToiecTest;
     ArrayList<QuestionPast1> questionPast1s;
     ArrayList<QuestionPast2> questionPast2s;
-
+    ArrayList<BlockQuestionPast3> questionPast3s;
+    ArrayList<BlockQuestionPast4> questionPast4s;
+    ArrayList<QuestionPast5> questionPast5s;
+    ArrayList<QuestionPast6> questionPast6s;
+    ArrayList<QuestionPast7> questionPast7s;
     public void setNameBook(String nameBook) {
         this.nameBook = nameBook;
     }
@@ -27,11 +31,11 @@ public class ToiecTest {
         this.questionPast2s = questionPast2s;
     }
 
-    public void setQuestionPast3s(ArrayList<QuestionPast3> questionPast3s) {
+    public void setQuestionPast3s(ArrayList<BlockQuestionPast3> questionPast3s) {
         this.questionPast3s = questionPast3s;
     }
 
-    public void setQuestionPast4s(ArrayList<QuestionPast4> questionPast4s) {
+    public void setQuestionPast4s(ArrayList<BlockQuestionPast4> questionPast4s) {
         this.questionPast4s = questionPast4s;
     }
 
@@ -47,7 +51,7 @@ public class ToiecTest {
         this.questionPast7s = questionPast7s;
     }
 
-    public ArrayList<QuestionPast3> getQuestionPast3s() {
+    public ArrayList<BlockQuestionPast3> getQuestionPast3s() {
         return questionPast3s;
     }
 
@@ -67,7 +71,7 @@ public class ToiecTest {
         return questionPast2s;
     }
 
-    public ArrayList<QuestionPast4> getQuestionPast4s() {
+    public ArrayList<BlockQuestionPast4> getQuestionPast4s() {
         return questionPast4s;
     }
 
@@ -83,9 +87,5 @@ public class ToiecTest {
         return questionPast7s;
     }
 
-    ArrayList<QuestionPast3> questionPast3s;
-    ArrayList<QuestionPast4> questionPast4s;
-    ArrayList<QuestionPast5> questionPast5s;
-    ArrayList<QuestionPast6> questionPast6s;
-    ArrayList<QuestionPast7> questionPast7s;
+
 }
