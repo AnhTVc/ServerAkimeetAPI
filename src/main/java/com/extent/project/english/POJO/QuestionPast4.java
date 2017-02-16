@@ -7,7 +7,6 @@ public class QuestionPast4 {
     private int index;
     private String question;
     private String answer;
-
     private String explain;
 
     public void setIndex(int index) {

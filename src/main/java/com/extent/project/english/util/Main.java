@@ -13,14 +13,18 @@ import java.util.ArrayList;
  * Created by VietAnh on 2/5/2017.
  */
 public class Main {
+    private static final String URL = "/Users/nguyenmanhtuan/Documents/AnhTVc/other/";
     private static final String NAMEBOOK = "4-More Practice Tests";
     private static final String NAMETOIECTESTONE = "Practice Test One";
     private static final String ERROR = "ERROR READ QUESTION";
-    private static final String PATH_RESULT = "D:\\Data\\Du An\\Toiec\\result.json";
+    private static final String PATH_RESULT_ONE = URL + "/result/result_toiec_test_1.json";
+    private static final String PATH_RESULT_TWO = URL + "/result/result_toiec_test_2.json";
+    private static final String PATH_RESULT_THREE = URL + "/result/result_toiec_test_3.json";
+    private static final String PATH_RESULT_FOUR = URL + "/result/result_toiec_test_4.json";
 
     /**
      * Lay thong tin bai toiec :)
-     * @param document
+     * @param document: document
      * @param indexBeginQuestion: vị trí bắt đầu của phần câu hỏi
      * @param indexEndQuestion: vị trí kết thúc của phần câu hỏi
      * @param indexBeginAnswer: vị trí bắt đầu của phần câu trả lời
@@ -53,9 +57,9 @@ public class Main {
             ArrayList<QuestionPast1> questionPast1s = new ArrayList<>();
             ArrayList<QuestionPast2> questionPast2s = new ArrayList<>();
             ArrayList<QuestionPast3> questionPast3s;
-            ArrayList<QuestionPast4> questionPast4s = new ArrayList<>();
+            ArrayList<QuestionPast4> questionPast4s;
             ArrayList<QuestionPast5> questionPast5s = new ArrayList<>();
-            ArrayList<QuestionPast6> questionPast6s = new ArrayList<>();
+            ArrayList<QuestionPast6> questionPast6s;
             ArrayList<QuestionPast7> questionPast7s = new ArrayList<>();
             QuestionPast1 questionPast1;
             QuestionPast2 questionPast2;
@@ -83,16 +87,23 @@ public class Main {
                     String strTemp = toeicTestTextAnswer.substring(toeicTestTextAnswer.indexOf(String.valueOf(begin) + ". "),
                             toeicTestTextAnswer.indexOf(String.valueOf(end) + ". "));
                     questionPast1.setExplain(strTemp);
-
                     questionPast1.setAnswer(strTemp.substring(strTemp.indexOf("(") + 1, strTemp.indexOf(")")));
-                    questionPast1.setAudioScript(toeicTestTextAudio.substring(toeicTestTextAudio.indexOf(String.valueOf(begin) + ". "),
-                            toeicTestTextAudio.indexOf(String.valueOf(end) + ". ")));
+
                     // Get Answer
 
                 }catch (Exception ex){
                     ex.printStackTrace();
                     questionPast1.setExplain(ERROR);
+                    questionPast1.setAnswer(ERROR);
                 }
+
+                try {
+                    questionPast1.setAudioScript(toeicTestTextAudio.substring(toeicTestTextAudio.indexOf(String.valueOf(begin) + ". "),
+                            toeicTestTextAudio.indexOf(String.valueOf(end) + ". ")));
+                }catch (Exception e){
+                    questionPast1.setAudioScript(ERROR);
+                }
+
                 questionPast1s.add(questionPast1);
             }
 
@@ -111,11 +122,17 @@ public class Main {
                     questionPast2.setExplain(strTemp);
 
                     questionPast2.setAnswer(strTemp.substring(strTemp.indexOf("(") + 1, strTemp.indexOf(")")));
+
+                }catch (Exception ex){
+                    questionPast2.setExplain(ERROR);
+                    questionPast2.setAnswer(ERROR);
+                }
+
+                try {
                     questionPast2.setAudioScript(toeicTestTextAudio.substring(toeicTestTextAudio.indexOf(String.valueOf(begin) + ". "),
                             toeicTestTextAudio.indexOf(String.valueOf(end) + ". ")));
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                    questionPast2.setExplain(ERROR);
+                }catch (Exception e){
+                    questionPast2.setAudioScript(ERROR);
                 }
                 questionPast2s.add(questionPast2);
             }
@@ -150,16 +167,20 @@ public class Main {
                                 toeicTestTextQuestion.indexOf(String.valueOf(end) + ". "));
                         questionPast3.setQuestion(strTemp);
 
-                        strTemp = toeicTestTextAnswer.substring(toeicTestTextAnswer.indexOf(String.valueOf(begin) + ". "),
+                    }catch (Exception ex){
+                        questionPast3.setQuestion(ERROR);
+                    }
+
+                    try {
+                        String strTemp = toeicTestTextAnswer.substring(toeicTestTextAnswer.indexOf(String.valueOf(begin) + ". "),
                                 toeicTestTextAnswer.indexOf(String.valueOf(end) + ". "));
 
                         questionPast3.setAnswer(strTemp.substring(strTemp.indexOf("(") + 1, strTemp.indexOf(")")));
                         questionPast3.setExplain(strTemp);
-                    }catch (Exception ex){
-                        ex.printStackTrace();
+                    }catch (Exception e){
+                        questionPast3.setAnswer(ERROR);
                         questionPast3.setExplain(ERROR);
                     }
-
                     questionPast3s.add(questionPast3);
 
                 }
@@ -181,38 +202,45 @@ public class Main {
             BlockQuestionPast4 blockQuestionPast4;
             ArrayList<BlockQuestionPast4> arrayListBlockQuestionPast4s = new ArrayList<>();
 
-            for(int i = indexAudioScript; i< arrayAudioScript.size(); i++){
+            for(int i = indexAudioScript -1; i< arrayAudioScript.size(); i++){
                 //
                 String temp = toeicTestTextAudio.substring(arrayAudioScript.get(i) + 9, arrayAudioScript.get(i) + 22);
-
+                questionPast4s = new ArrayList<>();
                 ArrayList<Integer> arrayList = PDFUtil.getArrayInt(temp, "\\s+through\\s+");
-                for(int j = arrayList.get(0); j < arrayList.get(1); j ++){
+                for(int j = arrayList.get(0); j <= arrayList.get(1); j ++){
                     questionPast4 = new QuestionPast4();
-                    questionPast4.setIndex(i);
+
+                    questionPast4.setIndex(j);
                     int begin = j;
                     int end = j + 1;
                     try{
                         String strTemp = toeicTestTextQuestion.substring(toeicTestTextQuestion.indexOf(String.valueOf(begin) + ". "),
                                 toeicTestTextQuestion.indexOf(String.valueOf(end) + ". "));
                         questionPast4.setQuestion(strTemp);
-                        strTemp = toeicTestTextAnswer.substring(toeicTestTextAnswer.indexOf(String.valueOf(begin) + ". "),
-                                toeicTestTextAnswer.indexOf(String.valueOf(end) + ". "));
-                        questionPast4.setExplain(strTemp);
 
-                        questionPast4.setAnswer(strTemp.substring(strTemp.indexOf("(") + 1, strTemp.indexOf(")")));
                     }catch (Exception ex){
-                        ex.printStackTrace();
+                        questionPast4.setQuestion(ERROR);
+                    }
+
+                    try {
+                        String strTemp = toeicTestTextAnswer.substring(toeicTestTextAnswer.indexOf(String.valueOf(begin) + ". "),
+                                toeicTestTextAnswer.indexOf(String.valueOf(end) + ". "));
+                        questionPast4.setAnswer(strTemp.substring(strTemp.indexOf("(") + 1, strTemp.indexOf(")")));
+                    }catch (Exception e){
                         questionPast4.setExplain(ERROR);
+                        questionPast4.setAnswer(ERROR);
                     }
                     questionPast4s.add(questionPast4);
                 }
 
-                if(indexAudioScript == 18){
-                    System.out.print("a day roi");
-                }
                 blockQuestionPast4 = new BlockQuestionPast4();
+                blockQuestionPast4.setQuestionPast4s(questionPast4s);
                 // Set audio
-                blockQuestionPast4.setAudioScript(toeicTestTextAudio.substring(arrayAudioScript.get(indexAudioScript -1), arrayAudioScript.get(indexAudioScript)));
+                try{
+                    blockQuestionPast4.setAudioScript(toeicTestTextAudio.substring(arrayAudioScript.get(indexAudioScript - 1), arrayAudioScript.get(indexAudioScript)));
+                }catch (Exception e){
+                    blockQuestionPast4.setAudioScript("ERROR IN READ AUDIO");
+                }
                 indexAudioScript ++;
 
                 arrayListBlockQuestionPast4s.add(blockQuestionPast4);
@@ -233,22 +261,28 @@ public class Main {
                             toeicTestTextQuestion.indexOf(String.valueOf(end) + ". "));
                     questionPast5.setQuestion(strTemp);
 
-                    strTemp = toeicTestTextAnswer.substring(toeicTestTextAnswer.indexOf(String.valueOf(begin) + ". "),
+                }catch (Exception ex){
+                    questionPast5.setQuestion(ERROR);
+                }
+
+                try {
+                    String strTemp = toeicTestTextAnswer.substring(toeicTestTextAnswer.indexOf(String.valueOf(begin) + ". "),
                             toeicTestTextAnswer.indexOf(String.valueOf(end) + ". "));
                     questionPast5.setExplain(strTemp);
 
                     questionPast5.setAnswer(strTemp.substring(strTemp.indexOf("(") + 1, strTemp.indexOf(")")));
-                }catch (Exception ex){
-                    ex.printStackTrace();
+                }catch (Exception e){
+                    questionPast5.setAnswer(ERROR);
                     questionPast5.setExplain(ERROR);
                 }
+
                 questionPast5s.add(questionPast5);
             }
 
             /****************************************************************/
             /*                      GET PAST 6                              */
+            /* Find page begin past 6: past 6 have 4 page                   */
             /****************************************************************/
-            // TODO get data past6
             String past6 = "PART 6";
             String contentTempPast6 = "Directions: ";
             int indexPast6 = 0;
@@ -266,18 +300,53 @@ public class Main {
                     }
                 }
             }
+
+            BlockQuetionPast6 blockQuetionPast6;
+            ArrayList<BlockQuetionPast6> blockQuetionPast6ArrayList = new ArrayList<>();
             for(int i = indexPast6; i< indexPast6 + 4; i++){
+                // su ly tung page
                 PDFTextStripper readerOnePage = new PDFTextStripper();
                 readerOnePage.setStartPage(i);
                 readerOnePage.setEndPage(i);
                 String pageText = readerOnePage.getText(document);
+                questionPast6s = new ArrayList<>();
+                blockQuetionPast6 = new BlockQuetionPast6();
+                // Tach cau hoi ra khoi bai doc
+                for(int j = 1; j <=3; j++){
+                    questionPast6 = new QuestionPast6();
+                    int begin = 140 + (i - indexPast6) * 3 + j;
+                    int end = begin + 1;
 
-                questionPast6 = new QuestionPast6();
-                questionPast6.setIndex(i);
-                questionPast6.setReadContent(pageText);
-                questionPast6s.add(questionPast6);
+                    questionPast6.setIndex(begin);
+                    try{
+                        String temp = pageText.substring(pageText.indexOf(begin), pageText.indexOf(end));
+                        questionPast6.setQuestion(temp);
 
+                        PDFUtil.stringRemoveSubString(pageText, temp);
+                    }catch (Exception e){
+                        questionPast6.setQuestion(ERROR);
+                    }
+
+                    try {
+                        String strTemp = toeicTestTextAnswer.substring(toeicTestTextAnswer.indexOf(String.valueOf(begin) + ". "),
+                                toeicTestTextAnswer.indexOf(String.valueOf(end) + ". "));
+                        questionPast6.setExplain(strTemp);
+
+                        questionPast6.setAnswer(strTemp.substring(strTemp.indexOf("(") + 1, strTemp.indexOf(")")));
+                    }catch (Exception e){
+                        questionPast6.setAnswer(ERROR);
+                        questionPast6.setExplain("ERROR READ");
+                    }
+                    questionPast6s.add(questionPast6);
+                }
+
+                blockQuetionPast6.setQuestionPast6s(questionPast6s);
+                blockQuetionPast6.setReadContent(pageText);
+
+                blockQuetionPast6ArrayList.add(blockQuetionPast6);
             }
+            toiecTest.setQuestionPast6s(blockQuetionPast6ArrayList);
+
             /****************************************************************/
             /*                      GET PAST 7                              */
             /* Describe:    Load text question past 7 to String             */
@@ -286,6 +355,7 @@ public class Main {
             /****************************************************************/
             // Load text past 7
             String past7 = "PART 7";
+
             int indexPast7 = 0;
             for(int i = indexBeginQuestion; i< indexEndQuestion; i++){
                 PDFTextStripper readerOnePage = new PDFTextStripper();
@@ -310,7 +380,6 @@ public class Main {
             String textQuestionPast7 = readerPast7Question.getText(document);
             String strTempOne = "Questions ";
             //---------------------------------------------------------
-            //String strTempTwo = " re fer  to th e  fo llo w in g  jo b  an n o u n cem en t";
             int indexTemp = textQuestionPast7.indexOf(strTempOne);
             ArrayList<Integer> intArrayBlockPast7 = new ArrayList<>();
            // intArrayBlockPast7.add(indexTemp);
@@ -319,19 +388,53 @@ public class Main {
                 indexTemp = textQuestionPast7.indexOf(strTempOne, indexTemp + 1);
 
             }
+
+            BlockQuestionPast7 blockQuestionPast7;
+            ArrayList<BlockQuestionPast7> blockQuestionPast7ArrayList = new ArrayList<>();
+            QuestionPast6 questionPast7a;
+            ArrayList<QuestionPast6> questionPast7aArrayList;
             for(int i =0; i< intArrayBlockPast7.size() -1; i++){
                 String tempBlockPast7 = textQuestionPast7.substring(intArrayBlockPast7.get(i), intArrayBlockPast7.get(i + 1));
-                try{
-                    questionPast7 = PDFUtil.getQuestionPast7InBlock(tempBlockPast7);
-                    if(questionPast7 != null)
-                        questionPast7s.add(questionPast7);
-                }catch (Exception e){
-                    e.printStackTrace();
+
+                blockQuestionPast7 = new BlockQuestionPast7();
+                questionPast7aArrayList = new ArrayList<>();
+                ArrayList<Integer> arrayListInt = PDFUtil.getArrayInt(tempBlockPast7.substring(10, 17), "-");
+
+                for(int j = arrayListInt.get(0); j <= arrayListInt.get(1); j++){
+                    questionPast7a = new QuestionPast6();
+                    questionPast7a.setIndex(j);
+                    //set question
+                    try {
+                        String temp = tempBlockPast7.substring(tempBlockPast7.indexOf(j), tempBlockPast7.indexOf(j + 1));
+                        questionPast7a.setQuestion(temp);
+
+                        PDFUtil.stringRemoveSubString(tempBlockPast7, temp);
+                    }catch (Exception e){
+                        questionPast7a.setQuestion(ERROR);
+                    }
+
+                    //set answer
+                    try {
+                        String strTemp = toeicTestTextAnswer.substring(toeicTestTextAnswer.indexOf(String.valueOf(j) + ". "),
+                                toeicTestTextAnswer.indexOf(String.valueOf(j + 1) + ". "));
+                        questionPast7a.setExplain(strTemp);
+
+                        questionPast7a.setAnswer(strTemp.substring(strTemp.indexOf("(") + 1, strTemp.indexOf(")")));
+                    }catch (Exception e){
+                        questionPast7a.setAnswer(ERROR);
+                        questionPast7a.setExplain("ERROR READ");
+                    }
+
+                    questionPast7aArrayList.add(questionPast7a);
                 }
 
+                blockQuestionPast7.setQuestionPast7s(questionPast7aArrayList);
+                blockQuestionPast7.setReadContent(tempBlockPast7);
+
+                blockQuestionPast7ArrayList.add(blockQuestionPast7);
             }
 
-            // Lấy câu trả lời cho từng câu hỏi của past7
+           /* // Lấy câu trả lời cho từng câu hỏi của past7
             for(int i =0; i< questionPast7s.size(); i++){
                 //Xử lý từng block
                 QuestionPast7 questionPastTemp = questionPast7s.get(i);
@@ -357,15 +460,15 @@ public class Main {
                 questionPastTemp.setQuestions(questions);
                 questionPast7s.set(i, questionPastTemp);
             }
-
+*/
 
             toiecTest.setQuestionPast1s(questionPast1s);
             toiecTest.setQuestionPast2s(questionPast2s);
 
             //toiecTest.setQuestionPast4s(questionPast4s);
             toiecTest.setQuestionPast5s(questionPast5s);
-            toiecTest.setQuestionPast6s(questionPast6s);
-            toiecTest.setQuestionPast7s(questionPast7s);
+
+           toiecTest.setQuestionPast7s(blockQuestionPast7ArrayList);
 
             return toiecTest;
         }catch (Exception e){
@@ -475,7 +578,7 @@ public class Main {
 
                 questionPast6 = new QuestionPast6();
                 questionPast6.setIndex(i);
-                questionPast6.setReadContent(pageText);
+                //questionPast6.setReadContent(pageText);
             }
 
 
@@ -643,6 +746,11 @@ public class Main {
         boolean checkIsQuestion = false;
         try {
             ToiecTest toiecTestOne = new ToiecTest();
+            ToiecTest toiecTestTwo = new ToiecTest();
+            ToiecTest toiecTestThree = new ToiecTest();
+            ToiecTest toiecTestFour = new ToiecTest();
+
+
             toiecTestOne.setNameBook(NAMEBOOK);
             toiecTestOne.setNameToiecTest(NAMETOIECTESTONE);
             ArrayList<QuestionPast1> questionPast1s = new ArrayList<>();
@@ -650,7 +758,7 @@ public class Main {
             QuestionPast1 questionPast1;
             String PAST1 = "PAST1";
 
-            PDDocument document = PDDocument.load(new File("D:\\Data\\Kỳ 8\\Toiec\\4-More Practice Tests\\Book– More Practice Tests Course - 4th edition.pdf"));
+            PDDocument document = PDDocument.load(new File(URL + "Book– More Practice Tests Course - 4th edition.pdf"));
             document.getClass();
             PDFTextStripper reader;
             int pageIndexPageAnswerKeyOne = 0, pageIndexPageAnswerKeyTwo = 0, pageIndexPageAnswerKeyThree = 0, pageIndexPageAnswerKeyFour = 0;
@@ -702,9 +810,7 @@ public class Main {
                 if(StringUtils.contains(PDFUtil.stringRemoveSubString(pageText, "\\s+"), PDFUtil.stringRemoveSubString(stringQuestion, "\\s+"))){
                     checkIsQuestion = true;
                 }
-                if(i == 173){
-                    System.out.print("A day roi");
-                }
+
                 if(StringUtils.contains(pageText, strAudioScript)){
                     if(StringUtils.contains(PDFUtil.stringRemoveSubString(pageText, "\\s+"), PDFUtil.stringRemoveSubString(strTestOne, "\\s+"))){
                         // Page chua cau hoi past 1
@@ -719,12 +825,23 @@ public class Main {
 
                 }
             }
-            toiecTestOne = getToiecTest(document, pageIndexPageQuestionOne, pageIndexPageQuestionTwo -1, pageIndexPageAnswerKeyOne, pageIndexPageAnswerKeyTwo -1,pageIndexAudioScriptOne,
+            toiecTestOne = getToiecTest(document, pageIndexPageQuestionOne, pageIndexPageQuestionTwo -1, pageIndexPageAnswerKeyOne,
+                    pageIndexPageAnswerKeyTwo -1,pageIndexAudioScriptOne,
                     pageIndexAudioScriptTwo - 1);
 
+            toiecTestTwo = getToiecTest(document, pageIndexPageQuestionTwo, pageIndexPageQuestionThree -1,
+                    pageIndexPageAnswerKeyTwo, pageIndexPageAnswerKeyThree - 1, pageIndexAudioScriptTwo, pageIndexAudioScriptThree -1);
+            toiecTestThree = getToiecTest(document, pageIndexPageQuestionThree, pageIndexPageQuestionFour -1,
+                    pageIndexPageAnswerKeyThree, pageIndexPageAnswerKeyFour - 1, pageIndexAudioScriptThree, pageIndexAudioScriptFour -1);
+            toiecTestFour = getToiecTest(document, pageIndexPageQuestionFour, 170,
+                    pageIndexPageAnswerKeyFour, 251, pageIndexAudioScriptFour, 200);
+
             Gson gson = new Gson();
-            System.out.print(gson.toJson(toiecTestOne));
-            PDFUtil.stringToFile(gson.toJson(toiecTestOne), PATH_RESULT);
+            
+            PDFUtil.stringToFile(gson.toJson(toiecTestOne), PATH_RESULT_ONE);
+            PDFUtil.stringToFile(gson.toJson(toiecTestTwo), PATH_RESULT_TWO);
+            PDFUtil.stringToFile(gson.toJson(toiecTestThree), PATH_RESULT_THREE);
+            PDFUtil.stringToFile(gson.toJson(toiecTestFour), PATH_RESULT_FOUR);
             // Save to file
 
         }catch (Exception e){

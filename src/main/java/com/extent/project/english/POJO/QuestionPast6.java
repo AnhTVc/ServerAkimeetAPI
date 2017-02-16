@@ -9,30 +9,39 @@ import java.util.ArrayList;
  */
 public class QuestionPast6 {
     private int index;
-    private String readContent;
-    private ArrayList<AnswerKey> answerKeys; // Danh sách các câu tra lời cho từng bài viết (3 câu hỏi trên 1 bài)
+    private String answer;
+    private String explain;
+    private String question;
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
 
     public void setIndex(int index) {
         this.index = index;
     }
 
-    public void setReadContent(String readContent) {
-        this.readContent = readContent;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
-    public void setAnswerKeys(ArrayList<AnswerKey> answerKeys) {
-        this.answerKeys = answerKeys;
+    public void setExplain(String explain) {
+        this.explain = explain;
     }
 
     public int getIndex() {
         return index;
     }
 
-    public String getReadContent() {
-        return readContent;
+    public String getAnswer() {
+        return answer;
     }
 
-    public ArrayList<AnswerKey> getAnswerKeys() {
-        return answerKeys;
+    public String getExplain() {
+        return explain;
     }
 }
