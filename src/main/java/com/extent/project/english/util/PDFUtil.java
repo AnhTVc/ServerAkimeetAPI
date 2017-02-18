@@ -8,12 +8,12 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.tools.imageio.ImageIOUtil;
+import sun.misc.IOUtils;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -124,6 +124,22 @@ public class PDFUtil {
             }
         }
         return false;
+    }
+
+
+    /**
+     * File to String
+     * @param url: path name
+     * @return
+     */
+    public static String fileToString(String url){
+        try {
+            String content = new String(Files.readAllBytes(Paths.get(url)));
+            return content;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void main(String[] agr){
